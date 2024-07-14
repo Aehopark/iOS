@@ -11,7 +11,7 @@ import SwiftUI
 struct AehoparkApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AehoparkTabView()
         }
     }
 }
