@@ -23,6 +23,7 @@
 		6D2682232C43138F00120AA0 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D2682202C43138F00120AA0 /* Inter-Regular.ttf */; };
 		6D2682242C43138F00120AA0 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D2682212C43138F00120AA0 /* Inter-Medium.ttf */; };
 		6D2682252C43138F00120AA0 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D2682222C43138F00120AA0 /* Inter-SemiBold.ttf */; };
+		B36DA1212C4422F70040BFEA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36DA1202C4422F70040BFEA /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		6D2682212C43138F00120AA0 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
 		6D2682222C43138F00120AA0 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		6D2682272C43173100120AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B36DA1202C4422F70040BFEA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			children = (
 				6D2682272C43173100120AA0 /* Info.plist */,
 				6D2682262C43164D00120AA0 /* App */,
+				B36DA11F2C4422A60040BFEA /* Util */,
 				6D26820A2C430A7600120AA0 /* Home */,
 				6D2682122C430B1900120AA0 /* Extension */,
 				6D2682002C42FFE900120AA0 /* Assets.xcassets */,
@@ -135,6 +138,14 @@
 				6D2681FE2C42FFE800120AA0 /* ContentView.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		B36DA11F2C4422A60040BFEA /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B36DA1202C4422F70040BFEA /* Constants.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +230,7 @@
 				6D2681FF2C42FFE800120AA0 /* ContentView.swift in Sources */,
 				6D2682152C430D6500120AA0 /* Fonts+.swift in Sources */,
 				6D2681FD2C42FFE800120AA0 /* AehoparkApp.swift in Sources */,
+				B36DA1212C4422F70040BFEA /* Constants.swift in Sources */,
 				6D2682102C430A9800120AA0 /* HomeModel.swift in Sources */,
 				6D26820E2C430A8F00120AA0 /* HomeViewModel.swift in Sources */,
 			);
