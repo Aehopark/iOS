@@ -20,6 +20,7 @@ struct AehoparkTabView: View {
         NavigationStack(path: $appState.navigationPath) {
             TabView(selection: $appState.currentTab) {
                 HomeView()
+                    .environmentObject(HomeViewModel())
                     .tabItem {
                         Label {
                             Text("홈")
@@ -32,7 +33,7 @@ struct AehoparkTabView: View {
                         }
                     }
                     .tag(Tab.home)
-                InterestView()
+                FavoriteView()
                     .tabItem {
                         Label {
                             Text("관심상품")
