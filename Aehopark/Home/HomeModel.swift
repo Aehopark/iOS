@@ -6,3 +6,6 @@
 //
 
 import Foundation
+struct HomeModel: Codable{
+    var recommendItems: [ArticleItemModel]
+}

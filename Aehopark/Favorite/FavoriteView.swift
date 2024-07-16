@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct InterestView: View {
+struct FavoriteView: View {
     var body: some View {
         Text("관심상품 페이지")
     }
 }
 
 #Preview {
-    InterestView()
+    FavoriteView()
 }
