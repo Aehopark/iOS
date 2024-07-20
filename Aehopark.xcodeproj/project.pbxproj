@@ -48,6 +48,9 @@
 		6DEA8D2B2C469EE500A235B2 /* FavoriteEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEA8D2A2C469EE500A235B2 /* FavoriteEndPoint.swift */; };
 		6DEA8D2D2C469F5B00A235B2 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEA8D2C2C469F5B00A235B2 /* Secret.swift */; };
 		6DEA8D2F2C46A24A00A235B2 /* RecommendEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEA8D2E2C46A24A00A235B2 /* RecommendEndPoint.swift */; };
+		A110925C2C4C166F00A760CD /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A110925B2C4C166F00A760CD /* AddressModel.swift */; };
+		A110925E2C4C168E00A760CD /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A110925D2C4C168E00A760CD /* AddressViewModel.swift */; };
+		A11092602C4C169F00A760CD /* AddressWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A110925F2C4C169F00A760CD /* AddressWebView.swift */; };
 		A131A3812C4BCA3100D75B6D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A131A3802C4BCA3100D75B6D /* SignInView.swift */; };
 		A1A8FFA32C4BC5A00082163B /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8FF9E2C4BC5A00082163B /* TermsOfServiceView.swift */; };
 		A1A8FFA42C4BC5A00082163B /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8FF9F2C4BC5A00082163B /* NicknameView.swift */; };
@@ -101,6 +104,9 @@
 		6DEA8D2A2C469EE500A235B2 /* FavoriteEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEndPoint.swift; sourceTree = "<group>"; };
 		6DEA8D2C2C469F5B00A235B2 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		6DEA8D2E2C46A24A00A235B2 /* RecommendEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendEndPoint.swift; sourceTree = "<group>"; };
+		A110925B2C4C166F00A760CD /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		A110925D2C4C168E00A760CD /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
+		A110925F2C4C169F00A760CD /* AddressWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressWebView.swift; sourceTree = "<group>"; };
 		A131A3802C4BCA3100D75B6D /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		A1A8FF9E2C4BC5A00082163B /* TermsOfServiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
 		A1A8FF9F2C4BC5A00082163B /* NicknameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
@@ -302,6 +308,17 @@
 			path = Favorite;
 			sourceTree = "<group>";
 		};
+		A110925A2C4C165800A760CD /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				A1A8FFA02C4BC5A00082163B /* AddressView.swift */,
+				A110925F2C4C169F00A760CD /* AddressWebView.swift */,
+				A110925B2C4C166F00A760CD /* AddressModel.swift */,
+				A110925D2C4C168E00A760CD /* AddressViewModel.swift */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
 		A131A37F2C4BC9E400D75B6D /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,7 +341,7 @@
 			children = (
 				A1A8FF9F2C4BC5A00082163B /* NicknameView.swift */,
 				A1A8FFA22C4BC5A00082163B /* ProfileView.swift */,
-				A1A8FFA02C4BC5A00082163B /* AddressView.swift */,
+				A110925A2C4C165800A760CD /* Address */,
 				A1A8FF9E2C4BC5A00082163B /* TermsOfServiceView.swift */,
 				A1A8FFA12C4BC5A00082163B /* FinishView.swift */,
 			);
@@ -425,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D644D7B2C443D89003AC99C /* BannerView.swift in Sources */,
+				A11092602C4C169F00A760CD /* AddressWebView.swift in Sources */,
 				6DC7A5892C458C9E004535E7 /* ArticleItemModel.swift in Sources */,
 				6DEA8D252C469A8800A235B2 /* KeyChainManager.swift in Sources */,
 				6D644D712C44330A003AC99C /* BasketView.swift in Sources */,
@@ -435,6 +453,7 @@
 				6D26820C2C430A8300120AA0 /* HomeView.swift in Sources */,
 				6D2681FF2C42FFE800120AA0 /* ContentView.swift in Sources */,
 				6DEA8D2B2C469EE500A235B2 /* FavoriteEndPoint.swift in Sources */,
+				A110925E2C4C168E00A760CD /* AddressViewModel.swift in Sources */,
 				6D2682152C430D6500120AA0 /* Fonts+.swift in Sources */,
 				6D644D762C44369C003AC99C /* SearchView.swift in Sources */,
 				A1A8FFA52C4BC5A00082163B /* AddressView.swift in Sources */,
@@ -443,6 +462,7 @@
 				6D2681FD2C42FFE800120AA0 /* AehoparkApp.swift in Sources */,
 				A1A8FFA42C4BC5A00082163B /* NicknameView.swift in Sources */,
 				6D644D6D2C4432F7003AC99C /* FavoriteView.swift in Sources */,
+				A110925C2C4C166F00A760CD /* AddressModel.swift in Sources */,
 				6D2682102C430A9800120AA0 /* HomeModel.swift in Sources */,
 				A1A8FFA62C4BC5A00082163B /* FinishView.swift in Sources */,
 				6DEA8D172C46917700A235B2 /* Base.swift in Sources */,
