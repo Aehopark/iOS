@@ -9,6 +9,10 @@ import SwiftUI
 
 struct AddressView: View {
     @Environment(\.presentationMode) var presentationMode
+    @StateObject private var viewModel = AddressViewModel()
+    @State private var detailAddress = ""
+    
+    let postcodeURL = "https://changjaemun.github.io/DaumPostcodeServiceWeb/"
     
     var body: some View {
         NavigationStack{
@@ -23,15 +27,36 @@ struct AddressView: View {
                 Spacer()
                 
                 VStack{
-                    HStack{
-                        Image(systemName: "magnifyingglass")
-                        Text("주소를 검색하세요")
+                    VStack{
+                        NavigationLink{
+                            WebView(url: URL(string: postcodeURL)!, viewModel: viewModel)
+                                .navigationTitle("주소 검색")
+                                .navigationBarTitleDisplayMode(.inline)
+                        }label: {
+                            HStack{
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundStyle(._111111)
+                                Text(viewModel.address == "" ? "주소를 검색하세요" : "\(viewModel.address)")
+                                    .foregroundColor(viewModel.address == "" ? .gray : ._111111)
+                                Spacer()
+                            }
+                        }
+                        Rectangle()
+                            .frame(height: 1)
                             .foregroundColor(.gray)
-                        Spacer()
+                    }.padding()
+                    
+                    if viewModel.address != ""{
+                        VStack{
+                            TextField("상세 주소를 입력해주세요", text: $detailAddress)
+                                .textFieldStyle(.plain)
+                                .keyboardType(.default)
+                                .autocorrectionDisabled()
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(.gray)
+                        }.padding(.horizontal)
                     }
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.gray)
                 }.padding()
                 
                 Spacer()
