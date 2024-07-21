@@ -30,6 +30,7 @@ struct AddressView: View {
                     VStack{
                         NavigationLink{
                             WebView(url: URL(string: postcodeURL)!, viewModel: viewModel)
+                            //url 옵셔널 언래핑
                                 .navigationTitle("주소 검색")
                                 .navigationBarTitleDisplayMode(.inline)
                         }label: {

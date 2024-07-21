@@ -1,16 +1,8 @@
 import SwiftUI
 
 struct TermsOfServiceView: View {
-    @State private var agreeAll: Bool = false
     
-    @State private var agreeServiceTerms: Bool = false
-    @State private var agreePrivacyPolicy: Bool = false
-    @State private var agreeMarketingAlert: Bool = false
-    
-    @State private var showServiceTermsSheet: Bool = false
-    @State private var showPrivacyPolicySheet: Bool = false
-    @State private var showMarketingAlertSheet: Bool = false
-    
+    @StateObject private var viewModel = TermsViewModel()
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -25,10 +17,8 @@ struct TermsOfServiceView: View {
                 
                 AllAgree
                     .padding()
-                    .onChange(of: agreeAll) {
-                        agreeServiceTerms = true
-                        agreePrivacyPolicy = true
-                        agreeMarketingAlert = true
+                    .onChange(of: viewModel.agreeAll) { _ in
+                        viewModel.updateAllAgree()
                     }
                 
                 Divider()
@@ -49,26 +39,22 @@ struct TermsOfServiceView: View {
                 nextButton
                     .padding()
             }
-                .navigationTitle("회원가입")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationBarBackButtonHidden()
-                    .toolbar{
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button{
-                                presentationMode.wrappedValue.dismiss()
-                            }label: {
-                                Image(systemName: "chevron.left")
-                                    .foregroundColor(.black)
-                            }
-                        }
+            .navigationTitle("회원가입")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button{
+                        presentationMode.wrappedValue.dismiss()
+                    }label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.black)
                     }
+                }
+            }
             
-        }
+        }.environmentObject(viewModel)
         
-    }
-    
-    var isNextButtonDisabled: Bool {
-        return !(agreeServiceTerms && agreePrivacyPolicy)
     }
     
     var nextButton: some View{
@@ -77,71 +63,71 @@ struct TermsOfServiceView: View {
         } label: {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: UIScreen.main.bounds.width * 0.8 , height: UIScreen.main.bounds.height * 0.07)
-                .foregroundStyle(isNextButtonDisabled ? Color.gray : ._377_D_00)
+                .foregroundStyle(viewModel.isNextButtonDisabled ? Color.gray : ._377_D_00)
                 .overlay {
                     Text("완 료")
                         .foregroundStyle(Color.white)
                 }
-        }.disabled(isNextButtonDisabled)
+        }.disabled(viewModel.isNextButtonDisabled)
     }
     
     var serviceAgree: some View{
         HStack{
-            Toggle(isOn: $agreeServiceTerms, label: {})
+            Toggle(isOn: $viewModel.agreeServiceTerms, label: {})
                 .toggleStyle(CustomToggleStyle())
             Text("(필수) 서비스 이용약관 동의")
             Text("*")
                 .foregroundStyle(Color.red)
             Spacer()
             Button(action: {
-                showServiceTermsSheet = true
+                viewModel.showServiceTermsSheet = true
             }) {
                 Text("(보기)")
                     .font(.body)
                     .foregroundColor(.gray)
             }
-            .sheet(isPresented: $showServiceTermsSheet) {
-                TermsDetailView(title: "서비스 이용약관", text: "ㅇㅇㅇㅇ")
+            .sheet(isPresented: $viewModel.showServiceTermsSheet) {
+                TermsDetailView(title: "서비스 이용약관", url: viewModel.terms[0].url)
             }
         }
     }
     
     var privacyAgree: some View{
         HStack{
-            Toggle(isOn: $agreePrivacyPolicy, label: {})
+            Toggle(isOn: $viewModel.agreePrivacyPolicy, label: {})
                 .toggleStyle(CustomToggleStyle())
             Text("(필수) 개인정보 처리방침 동의")
             Text("*")
                 .foregroundStyle(Color.red)
             Spacer()
             Button(action: {
-                showPrivacyPolicySheet = true
+                viewModel.showPrivacyPolicySheet = true
             }) {
                 Text("(보기)")
                     .font(.body)
                     .foregroundColor(.gray)
             }
-            .sheet(isPresented: $showPrivacyPolicySheet) {
-                TermsDetailView(title: "개인 정보 처리 방침", text: "ㅇㅇㅇㅇ")
+            .sheet(isPresented: $viewModel.showPrivacyPolicySheet) {
+                TermsDetailView(title: "개인 정보 처리 방침", url: viewModel.terms[1].url)
             }
         }
     }
     
     var marketingAgree: some View{
         HStack{
-            Toggle(isOn: $agreeMarketingAlert, label: {})
+            Toggle(isOn: $viewModel.agreeMarketingAlert, label: {})
                 .toggleStyle(CustomToggleStyle())
             Text("(선택) 마케팅 수신동의")
             Spacer()
             Button(action: {
-                showMarketingAlertSheet = true
+                viewModel.showMarketingAlertSheet = true
             }) {
                 Text("(보기)")
                     .font(.body)
                     .foregroundColor(.gray)
             }
-            .sheet(isPresented: $showMarketingAlertSheet) {
-                TermsDetailView(title: "마케팅 수신동의 방침", text: "ㅇㅇㅇㅇ")
+            .sheet(isPresented: $viewModel.showMarketingAlertSheet) {
+                TermsDetailView(title: "마케팅 수신동의 방침", url: viewModel.terms[2].url)
             }
         }
     }
@@ -149,7 +135,7 @@ struct TermsOfServiceView: View {
     var AllAgree: some View{
         VStack{
             HStack{
-                Toggle(isOn: $agreeAll, label: {})
+                Toggle(isOn: $viewModel.agreeAll, label: {})
                     .toggleStyle(AllAgreeToggleStyle())
                 Text("전체 약관동의")
                     .font(.title2)
@@ -170,49 +156,21 @@ struct TermsOfServiceView: View {
 
 struct TermsDetailView: View {
     let title: String
-    let text: String
+    let url: URL
     
     var body: some View {
         NavigationStack {
             VStack {
-                ScrollView {
-                    Text(text)
-                        .padding()
+                TermsWebView(url: url)
                 }
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
-}
 
-struct CustomToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        Button(action: {
-            configuration.isOn.toggle()
-        }) {
-            HStack {
-                Image(systemName: "checkmark")
-                    .foregroundColor(configuration.isOn ? ._377_D_00 : .gray)
-                configuration.label
-            }
-        }
-    }
-}
 
-struct AllAgreeToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        Button(action: {
-            configuration.isOn.toggle()
-        }) {
-            HStack {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(configuration.isOn ? ._377_D_00 : .gray)
-                configuration.label
-            }
-        }
-    }
-}
+
 
 #Preview {
     TermsOfServiceView()
