@@ -109,7 +109,7 @@ struct BasketListCellView: View {
 }
 
 struct BasketListCellView_Previews: PreviewProvider {
-    @State static var product = Product(company: "회사명", title: "상품명", price: 10000, discountPrice: 8000, discountPercentage: 20, quantity: 1)
+    @State static var product = Product(company: "회사명", title: "상품명", discription: "", price: 10000, discountPrice: 8000, discountPercentage: 20, quantity: 1)
     @State static var isChecked = true
     
     static var previews: some View {
