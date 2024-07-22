@@ -39,6 +39,7 @@ struct BasketView: View {
                     .font(.Roboto(.semibold, size: 20))
                     .padding(.top, 20)
                 
+                // 장바구니에 상품이 존재하지 않을 때
                 if products.isEmpty {
                     Spacer()
                     Text("장바구니에 상품이 없습니다!")
@@ -48,7 +49,10 @@ struct BasketView: View {
                         .font(.Roboto(.regular, size: 16))
                         .foregroundColor(.DBDBDB)
                     Spacer()
-                } else {
+                }
+                
+                // 장바구니에 상품이 존재할 때
+                else {
                     ScrollView {
                         VStack {
                             HStack {
