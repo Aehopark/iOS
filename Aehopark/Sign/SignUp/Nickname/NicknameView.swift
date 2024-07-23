@@ -14,12 +14,16 @@ struct NicknameView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                HStack {
-                    Text("만나서 반가워요!\n어떻게 불러드리면 될까요?")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    Spacer()
-                }.padding()
+                VStack{
+                    HStack {
+                        Text("만나서 반가워요!\n어떻게 불러드리면 될까요?")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Spacer()
+                    }.padding()
+                    
+                }
+                
                 
                 Spacer()
                 
@@ -36,6 +40,14 @@ struct NicknameView: View {
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(viewModel.isNextButtonDisabled ? Color.gray : .green)
+                    if viewModel.nicknameModel.nickname.containsSpecialCharacter(){
+                        HStack{
+                            Text("닉네임에는 한글, 영어, 숫자만 사용가능합니다.")
+                                .font(.caption)
+                                .foregroundStyle(Color.red)
+                            Spacer()
+                        }
+                    }
                 }.padding()
                 
                 Spacer()
