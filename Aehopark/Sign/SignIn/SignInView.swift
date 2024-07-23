@@ -9,6 +9,8 @@ import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import AuthenticationServices
+
 
 struct SignInView: View {
     @State private var isLoggedIn: Bool = false
@@ -22,7 +24,8 @@ struct SignInView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: Text("SignUp"), isActive: $isLoggedIn) {
+                // 로그인 성공시 닉네임 적는 뷰로 이동
+                NavigationLink(destination: NicknameView(), isActive: $isLoggedIn) {
                                     EmptyView()
                                 }
                 
@@ -84,31 +87,6 @@ struct SignInView: View {
 }
 
 
-struct KakaoLoginModule {
-    @Binding var isLoggedIn: Bool
-    
-    func login() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else if let oauthToken = oauthToken {
-                    print("KakaoTalk login success: \(oauthToken)")
-                    isLoggedIn = true
-                }
-            }
-        } else {
-            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else if let oauthToken = oauthToken {
-                    print("KakaoAccount login success: \(oauthToken)")
-                    isLoggedIn = true
-                }
-            }
-        }
-    }
-}
 
 #Preview {
     SignInView()
