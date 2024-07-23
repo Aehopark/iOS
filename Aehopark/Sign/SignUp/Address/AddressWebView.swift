@@ -11,7 +11,8 @@ import WebKit
 struct WebView: UIViewRepresentable {
     let url: URL
     @ObservedObject var viewModel: AddressViewModel
-
+    @Environment(\.presentationMode) var presentationMode
+    
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView(frame: .zero, configuration: createConfiguration())
         webView.navigationDelegate = context.coordinator
@@ -46,6 +47,7 @@ struct WebView: UIViewRepresentable {
             if message.name == "callBackHandler", let data = message.body as? [String: Any] {
                 DispatchQueue.main.async {
                     self.parent.viewModel.handleAddressSelection(data: data)
+                    self.parent.presentationMode.wrappedValue.dismiss()
                 }
             }
         }

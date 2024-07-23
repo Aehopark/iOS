@@ -10,7 +10,7 @@ import SwiftUI
 struct AddressView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = AddressViewModel()
-    @State private var detailAddress = ""
+    @State private var isNavigationActive = false
     
     let postcodeURL = "https://changjaemun.github.io/DaumPostcodeServiceWeb/"
     
@@ -49,7 +49,7 @@ struct AddressView: View {
                     
                     if viewModel.address != ""{
                         VStack{
-                            TextField("상세 주소를 입력해주세요", text: $detailAddress)
+                            TextField("상세 주소를 입력해주세요", text: $viewModel.userAddress.detailAddress)
                                 .textFieldStyle(.plain)
                                 .keyboardType(.default)
                                 .autocorrectionDisabled()
@@ -62,8 +62,13 @@ struct AddressView: View {
                 
                 Spacer()
                 
-                skipButton
-                    .padding()
+                if viewModel.userAddress.detailAddress.isEmpty{
+                    skipButton.padding()
+                }else{
+                    nextButton.padding()
+                }
+                    
+                    
             }.navigationTitle("회원가입")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden()
@@ -79,6 +84,26 @@ struct AddressView: View {
                 }
         }
         
+    }
+    var nextButton: some View{
+        VStack{
+            NavigationLink(destination: TermsOfServiceView(), isActive: $isNavigationActive){
+                EmptyView()
+            }
+            Button{
+                print("주소 저장")
+                print(viewModel.userAddress)
+                isNavigationActive = true
+            }label: {
+                RoundedRectangle(cornerRadius: 10)
+                    .frame(width: UIScreen.main.bounds.width * 0.8 , height: UIScreen.main.bounds.height * 0.07)
+                    .foregroundStyle(._377_D_00)
+                    .overlay {
+                        Text("다 음")
+                            .foregroundStyle(Color.white)
+                    }
+            }
+        }
     }
     
     var skipButton: some View{
