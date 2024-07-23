@@ -12,5 +12,5 @@ struct Address: Identifiable {
     let roadAddress: String
     let jibunAddress: String
     let zonecode: String
+    var detailAddress: String
 }
-
