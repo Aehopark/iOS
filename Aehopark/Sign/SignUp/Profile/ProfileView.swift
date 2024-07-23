@@ -1,19 +1,9 @@
-//
-//  Profile.swift
-//  Aehopark
-//
-//  Created by 문창재 on 7/13/24.
-//
-
 import SwiftUI
 
-
 struct ProfileView: View {
-    @State private var profileImage: UIImage?
-    @State private var showImagePicker: Bool = false
-    
+    @StateObject private var viewModel = ProfileViewModel()
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,7 +17,7 @@ struct ProfileView: View {
                 Spacer()
                 
                 ZStack(alignment: .bottomTrailing) {
-                    if let profileImage = profileImage {
+                    if let profileImage = viewModel.profile.image {
                         Image(uiImage: profileImage)
                             .resizable()
                             .scaledToFill()
@@ -47,7 +37,7 @@ struct ProfileView: View {
                     }
                     
                     Button(action: {
-                        showImagePicker = true
+                        viewModel.showImagePicker = true
                     }) {
                         Image(systemName: "pencil.circle.fill")
                             .resizable()
@@ -58,8 +48,8 @@ struct ProfileView: View {
                             .clipShape(Circle())
                             .shadow(radius: 10)
                     }
-                    .sheet(isPresented: $showImagePicker) {
-                        ImagePicker(selectedImage: $profileImage)
+                    .sheet(isPresented: $viewModel.showImagePicker) {
+                        ImagePicker(selectedImage: $viewModel.profile.image)
                     }
                 }
                 
@@ -82,11 +72,6 @@ struct ProfileView: View {
                 }
             }
         }
-        .onChange(of: profileImage) { newImage in
-            if let newImage = newImage {
-                profileImage = newImage.resize(to: CGSize(width: 200, height: 200))
-            }
-        }
     }
     
     var skipButton: some View {
@@ -97,10 +82,10 @@ struct ProfileView: View {
                 .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.07)
                 .foregroundStyle(._377_D_00)
                 .overlay {
-                    if profileImage != nil{
+                    if viewModel.profile.image != nil {
                         Text("다 음")
                             .foregroundStyle(Color.white)
-                    }else{
+                    } else {
                         Text("건너뛰기")
                             .foregroundStyle(Color.white)
                     }
@@ -111,55 +96,4 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
-}
-
-
-import UIKit
-
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
-    @Environment(\.presentationMode) var presentationMode
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let parent: ImagePicker
-        
-        init(parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                parent.selectedImage = image
-            }
-            
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self)
-    }
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        picker.sourceType = .photoLibrary
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-}
-
-extension UIImage {
-    func resize(to size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        draw(in: CGRect(origin: .zero, size: size))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return resizedImage
-    }
 }

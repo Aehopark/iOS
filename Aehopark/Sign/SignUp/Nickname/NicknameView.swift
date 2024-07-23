@@ -8,20 +8,13 @@
 import SwiftUI
 
 struct NicknameView: View {
-    
-    @State private var nickname:String = ""
-    
+    @StateObject private var viewModel = NicknameViewModel()
     @Environment(\.presentationMode) var presentationMode
     
-    var isNextButtonDisabled: Bool {
-        return nickname.isEmpty
-    }
-    
     var body: some View {
-        NavigationStack{
-            VStack{
-                
-                HStack{
+        NavigationStack {
+            VStack {
+                HStack {
                     Text("만나서 반가워요!\n어떻게 불러드리면 될까요?")
                         .font(.title)
                         .fontWeight(.bold)
@@ -30,61 +23,54 @@ struct NicknameView: View {
                 
                 Spacer()
                 
-                VStack{
-                    HStack{
-                        TextField("닉네임을 입력해주세요", text: $nickname)
+                VStack {
+                    HStack {
+                        TextField("닉네임을 입력해주세요", text: $viewModel.nicknameModel.nickname)
                             .textFieldStyle(.plain)
                             .keyboardType(.default)
                             .autocorrectionDisabled()
-                        //textfield 안열림
                         
-                        
-                        Text("\(nickname.count) / 10")
+                        Text("\(viewModel.nicknameModel.nickname.count) / 10")
                             .foregroundStyle(Color.gray)
                     }
                     Rectangle()
                         .frame(height: 1)
-                        .foregroundColor(isNextButtonDisabled ? Color.gray : ._377_D_00)
+                        .foregroundColor(viewModel.isNextButtonDisabled ? Color.gray : .green)
                 }.padding()
-                
                 
                 Spacer()
                 
                 nextButton
                     .padding()
-                
-                
             }
             .navigationTitle("회원가입")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
-            .toolbar{
+            .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button{
+                    Button {
                         presentationMode.wrappedValue.dismiss()
-                    }label: {
+                    } label: {
                         Image(systemName: "chevron.left")
                             .foregroundColor(.black)
                     }
                 }
             }
         }
-        
     }
     
-    
-    var nextButton: some View{
+    var nextButton: some View {
         NavigationLink {
             ProfileView()
         } label: {
             RoundedRectangle(cornerRadius: 10)
-                .frame(width: UIScreen.main.bounds.width * 0.8 , height: UIScreen.main.bounds.height * 0.07)
-                .foregroundStyle(isNextButtonDisabled ? Color.gray : ._377_D_00)
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.07)
+                .foregroundStyle(viewModel.isNextButtonDisabled ? Color.gray : .green)
                 .overlay {
                     Text("다 음")
                         .foregroundStyle(Color.white)
                 }
-        }.disabled(isNextButtonDisabled)
+        }.disabled(viewModel.isNextButtonDisabled)
     }
 }
 
