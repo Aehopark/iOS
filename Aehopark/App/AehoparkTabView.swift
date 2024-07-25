@@ -34,6 +34,7 @@ struct AehoparkTabView: View {
                     }
                     .tag(Tab.home)
                 FavoriteView()
+                    .environmentObject(HomeViewModel())
                     .tabItem {
                         Label {
                             Text("관심상품")

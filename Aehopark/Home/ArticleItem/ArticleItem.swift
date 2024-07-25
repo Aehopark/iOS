@@ -229,14 +229,20 @@ struct ArticleItem: View {
                                 HStack {
                                     Spacer()
                                     
-                                    Image(systemName: "heart")
-                                        .renderingMode(.template)
-                                        .background {
-                                            Circle()
-                                                .frame(width: 30, height: 30)
-                                                .foregroundColor(.white)
-                                        }
-                                        .padding()
+                                    Button(action: {
+                                        //하트 선택/취소
+                                        
+                                    }) {
+                                        Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                                            .renderingMode(.template)
+                                            .background {
+                                                Circle()
+                                                    .frame(width: 30, height: 30)
+                                                    .foregroundColor(.white)
+                                            }
+                                            .foregroundColor(viewModel.isFavorite ? ._377_D_00: Color.gray)
+                                            .padding()
+                                    }
                                 }
                             }
                         }
