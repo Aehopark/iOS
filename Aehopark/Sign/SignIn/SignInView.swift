@@ -77,8 +77,9 @@ struct SignInView: View {
     }
     
     var unknownLogin: some View{
-        Button{
-            //메인 화면 가기
+        NavigationLink {
+            AehoparkTabView()
+                .navigationBarBackButtonHidden()
         } label: {
             Text("로그인하지 않고 둘러보기")
                 .tint(.gray)

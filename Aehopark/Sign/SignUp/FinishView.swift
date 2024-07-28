@@ -41,7 +41,8 @@ struct FinishView: View {
     
     var nextButton: some View{
         NavigationLink {
-            // homeView()
+            AehoparkTabView()
+                .navigationBarBackButtonHidden()
         } label: {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: UIScreen.main.bounds.width * 0.8 , height: UIScreen.main.bounds.height * 0.07)
