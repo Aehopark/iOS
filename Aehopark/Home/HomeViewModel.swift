@@ -25,7 +25,7 @@ class HomeViewModel: ObservableObject {
                 self.getRecommendItemResponse = getRecommendItemResponse
             }
         }
-    
+
     @Published var state: State
     
     init(
