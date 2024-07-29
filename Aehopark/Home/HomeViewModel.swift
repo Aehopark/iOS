@@ -33,5 +33,6 @@ class HomeViewModel: ObservableObject {
     ) {
         self.state = state
     }
+
 }
 
