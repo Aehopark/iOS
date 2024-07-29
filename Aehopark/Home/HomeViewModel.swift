@@ -25,11 +25,6 @@ class HomeViewModel: ObservableObject {
                 self.getRecommendItemResponse = getRecommendItemResponse
             }
         }
-    
-    enum Action {
-        case getRecommendItem
-        case toggleFavorite(body: FavoriteToggleRequest, index: Int)
-    }
 
     @Published var state: State
     
@@ -37,26 +32,6 @@ class HomeViewModel: ObservableObject {
         state: State = .init()
     ) {
         self.state = state
-    }
-    
-    func action(_ action: Action) async {
-        switch action {
-            
-        case .getRecommendItem:
-            let response = await RecommendService.getRecommendItem()
-            if response != nil {
-                await MainActor.run {
-                    state.getRecommendItemResponse.recommendItems.append(contentsOf: response!.data!.recommendItems)
-                }
-            }
-        case .toggleFavorite(body: let body, index: let index):
-            let response = await  FavoriteService.toggleFavorite(id: body.id)
-            if response != nil {
-                await MainActor.run {
-                    state.getRecommendItemResponse.recommendItems[index].isFavorite = response!.data!.isFavorite
-                }
-            }
-        }
     }
 }
 
