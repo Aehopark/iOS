@@ -12,24 +12,15 @@ struct SearchBarView: View {
     @Binding var searchTerm: String
     
     let placeHolder: String
-    let searchAction: () async -> Void
-    let showClearButton: Bool
-    let clearButtonAction: () -> Void
     let disabled: Bool
     
     init(
         placeHolder: String = "재료를 검색해보세요",
         searchTerm: Binding<String>,
-        searchAction: @escaping () async -> Void = {},
-        showClearButton: Bool = true,
-        clearButtonAction: @escaping () -> Void = {},
         disabled: Bool = false
     ) {
         self.placeHolder = placeHolder
         self._searchTerm = searchTerm
-        self.searchAction = searchAction
-        self.showClearButton = showClearButton
-        self.clearButtonAction = clearButtonAction
         self.disabled = disabled
     }
     
@@ -48,7 +39,7 @@ struct SearchBarView: View {
             .onSubmit {
                 Task {
                     if searchTerm != "" {
-                        await searchAction()
+                      
                     }
                 }
             }

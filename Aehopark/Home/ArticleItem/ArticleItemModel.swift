@@ -13,6 +13,23 @@ struct ArticleItemModel: Codable {
     let originType: String
     let categoryType: String
     let name: String
-    let price: String
     var isFavorite: Bool
+    
+    init(id: Int64, imageUrl: String, originType: String, categoryType: String, name: String, price: String, isFavorite: Bool) {
+        self.id = id
+        self.imageUrl = imageUrl
+        self.originType = originType
+        self.categoryType = categoryType
+        self.name = name
+        self.isFavorite = isFavorite
+    }
+    
+    init(from searchArticle: ArticleItemModel, category: String) {
+        self.id = searchArticle.id
+        self.imageUrl = searchArticle.imageUrl
+        self.originType = searchArticle.originType
+        self.categoryType = category
+        self.name = searchArticle.name
+        self.isFavorite = searchArticle.isFavorite
+    }
 }
