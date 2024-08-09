@@ -24,6 +24,7 @@ struct ArticleItem: View {
                             topTrailingRadius: 12
                         )
                     )
+                    .shadow(radius: 5)
                     .foregroundColor(.white)
                     .overlay {
                         VStack {
@@ -31,10 +32,10 @@ struct ArticleItem: View {
                             
                             HStack {
                                 VStack {
-                                    Text("\(viewModel.categoryType)")
+                                    Text("\(viewModel.category)")
                                         .font(.Roboto(.regular, size: 14))
                                         .foregroundColor(._111111)
-                                    Text("\(viewModel.name)")
+                                    Text("\(viewModel.ingredient)")
                                         .font(.Roboto(.semibold, size: 16))
                                         .foregroundColor(._111111)
                                 }
@@ -61,7 +62,7 @@ struct ArticleItem: View {
                             }
                         }
                     }
-                KFImage(URL(string: viewModel.imageUrl))
+                KFImage(URL(string: viewModel.image_url))
                     .resizable()
                     .frame(width: 160, height: 160) // 너비를 고정
                     .background(.gray)
@@ -93,7 +94,7 @@ struct ArticleItem: View {
                                                     )
                                                 )
                                         }
-                                        .padding(EdgeInsets(top: 4, leading: 7, bottom: 0, trailing: 0))
+                                        .padding(EdgeInsets(top: 4, leading: 32, bottom: 0, trailing: 0))
                                     Spacer()
                                 }
                                 Spacer()
@@ -109,14 +110,14 @@ struct ArticleItem: View {
                                         //하트 선택/취소
                                         
                                     }) {
-                                        Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                                        Image(systemName: viewModel.wishlist_status ? "heart.fill" : "heart")
                                             .renderingMode(.template)
                                             .background {
                                                 Circle()
                                                     .frame(width: 30, height: 30)
                                                     .foregroundColor(.white)
                                             }
-                                            .foregroundColor(viewModel.isFavorite ? ._377_D_00: Color.gray)
+                                            .foregroundColor(viewModel.wishlist_status ? ._377_D_00: Color.gray)
                                             .padding()
                                     }
                                 }
@@ -131,5 +132,5 @@ struct ArticleItem: View {
 }
 
 #Preview {
-    ArticleItem(viewModel: ArticleItemModel(id: 0, imageUrl: "", originType: "asdf", categoryType: "asdf", name: "asdf", price: "asdf", isFavorite: false))
+    ArticleItem(viewModel: ArticleItemModel(id: 0, originType: "", category: "", ingredient: "", image_url: "", wishlist_status: true))
 }

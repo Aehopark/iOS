@@ -7,5 +7,15 @@
 
 import Foundation
 struct HomeModel: Codable{
-    var recommendItems: [ArticleItemModel]
+    var ad: [adModel]
+    var list: [ArticleItemModel]
 }
+
+
+struct adModel: Codable {
+    let id: String
+    let url: String
+    let image_url: String
+}
+
+

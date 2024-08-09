@@ -34,7 +34,7 @@ struct FavoriteView: View {
                         }
                         ScrollView(.horizontal) {
                             LazyHStack { //최근 본 상품으로 변경 필요
-                                ForEach(viewModel.state.getRecommendItemResponse.recommendItems.prefix(10), id: \.id) { item in
+                                ForEach(viewModel.state.getRecommendItemResponse.list.prefix(10), id: \.id) { item in
                                     ArticleItem(viewModel: item)
                                         .padding(EdgeInsets(top: 0, leading: 13, bottom: 0, trailing: 0))
                                 }
@@ -48,7 +48,7 @@ struct FavoriteView: View {
                                 .padding(EdgeInsets(top: 10, leading: 24, bottom: 0, trailing: 0))
                             Spacer()
                         }
-                        let favoriteItems = viewModel.state.getRecommendItemResponse.recommendItems.filter { $0.isFavorite }
+                        let favoriteItems = viewModel.state.getRecommendItemResponse.list.filter { $0.wishlist_status }
                         
                         if favoriteItems.isEmpty { // 짬한 상품이 없을 때
                             VStack {
