@@ -251,13 +251,6 @@ struct OrderView: View {
                 }
                 .disabled(!isAgreedToTerms)
                 .padding([.leading, .trailing, .bottom], 16)
-                //                .background(
-                //                    NavigationLink(destination: PaymentSuccessView(), isActive: $showPaymentSuccess) { EmptyView() }
-                //                )
-                //                .background(
-                //                    NavigationLink(destination: PaymentFailureView(), isActive: $showPaymentFailure) { EmptyView() }
-                //                )
-                //            }
                 .background(Color("F8F8F8"))
             }
             .navigationTitle("결제")
@@ -272,7 +265,7 @@ struct OrderView_Previews: PreviewProvider {
             Product(company: "회사1", title: "상품 1", discription: "", price: 10000, discountPrice: 8000, discountPercentage: 20, quantity: 1),
             Product(company: "회사2", title: "상품 2", discription: "", price: 20000, quantity: 2),
             Product(company: "회사3", title: "상품 3", discription: "", price: 30000, discountPrice: 25000, discountPercentage: 16, quantity: 3)
-        ], totalPrice: 60000, totalDiscount: 10000, totalFee: 3000, totalAmount: 53000) // 예시 값
+        ], totalPrice: 60000, totalDiscount: 10000, totalFee: 3000, totalAmount: 53000)
     }
 }
 
