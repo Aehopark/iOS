@@ -107,8 +107,8 @@ struct BasketView: View {
                             Text("결제가 완료될 때까지 상품 구매 가능 여부 및 가격은 보장되지 않습니다")
                                 .font(.Roboto(.medium, size: 8))
                                 .foregroundColor(._999999)
-                                .padding(.top, 4)
-                                .padding(.bottom, 22)
+                                .padding(.top, 8)
+                                .padding(.bottom, 8)
                             
                             HStack {
                                 Text("총 상품금액")
@@ -153,7 +153,7 @@ struct BasketView: View {
                                 .frame(height: 10)
                             
                             HStack {
-                                Text("결제 예정 금액:")
+                                Text("결제 예정 금액")
                                     .font(.Roboto(.regular, size: 18))
                                 Spacer()
                                 Text("\(totalAmount) 원")
@@ -162,7 +162,6 @@ struct BasketView: View {
                             .padding(.top, 10)
                             .padding(.horizontal, 28)
                             
-                            // 추가된 Spacer로 ScrollView가 끝에 도달했을 때 고정되도록 함
                             Spacer(minLength: 1)
                         }
                     }

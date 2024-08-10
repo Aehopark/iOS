@@ -269,7 +269,7 @@ struct OrderView: View {
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: nil, message: "결제 기능 업데이트 중입니다 🥹", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "결제 기능 업데이트 중입니다🥹", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default))
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
