@@ -50,14 +50,13 @@ struct ArticleItem: View {
                             
                             HStack {
                                 Spacer()
-                                
-                                Button(action: {
-                                    
-                                }, label: {
+                                //appstate로 수정하기
+                                NavigationLink(destination: DetailView(name:viewModel.ingredient, categoryType: viewModel.category, imageUrl:viewModel.image_url)) {
                                     Text("최저가 보러가기")
-                                        .font(.Roboto(.regular, size: 12))
+                                        .font(.Roboto(size: 12))
                                         .foregroundColor(._767676)
-                                })
+                                    
+                                }
                                 .padding()
                             }
                         }

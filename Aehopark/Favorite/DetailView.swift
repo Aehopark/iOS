@@ -49,14 +49,14 @@ struct DetailView: View {
                 
                 HStack{
                     Text("\(name)")
-                        .font(.Roboto(Font.roboto.medium, size: 25))
+                        .font(.Roboto(Font.roboto.semibold, size: 25))
                         .padding(EdgeInsets(top: 10, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
                 }
                 HStack{
                     Text("\(categoryType)")
-                        .font(.Roboto(Font.roboto.medium, size: 20))
+                        .font(.Roboto(Font.roboto.semibold, size: 20))
                         .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
@@ -68,7 +68,7 @@ struct DetailView: View {
                 //가격추세: graph
                 HStack{
                     Text("가격 추세")
-                        .font(.Roboto(Font.roboto.medium, size: 20))
+                        .font(.Roboto(Font.roboto.semibold, size: 20))
                         .padding(EdgeInsets(top: 40, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
@@ -97,14 +97,14 @@ struct DetailView: View {
                 //판매처: table
                 HStack{
                     Text("판매처")
-                        .font(.Roboto(Font.roboto.medium, size: 20))
+                        .font(.Roboto(Font.roboto.semibold, size: 20))
                         .padding(EdgeInsets(top: 60, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
                 }
                 HStack{
                     Text("* 클릭 시 구매 페이지로 이동합니다")
-                        .font(.Roboto(Font.roboto.regular, size: 13))
+                        .font(.Roboto(Font.roboto.semibold, size: 13))
                         .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
@@ -171,14 +171,14 @@ struct DetailView: View {
                 
                 HStack{
                     Text("꼭 확인하세요!")
-                        .font(.Roboto(Font.roboto.medium, size: 17))
+                        .font(.Roboto(Font.roboto.semibold, size: 17))
                         .padding(EdgeInsets(top: 60, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
                 }
                 HStack{
                     Text("* 해당 플랫폼 식재료 가격은 플랫폼 내 판매량이 가장 많은 사위 10개의 평균 값입니다.")
-                        .font(.Roboto(Font.roboto.medium, size: 14))
+                        .font(.Roboto(Font.roboto.semibold, size: 14))
                         .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 0))
                         .foregroundStyle(.white)
                     Spacer()
