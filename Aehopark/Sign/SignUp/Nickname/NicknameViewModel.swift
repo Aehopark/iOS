@@ -13,6 +13,38 @@ class NicknameViewModel: ObservableObject {
     var isNextButtonDisabled: Bool {
         return (nicknameModel.nickname.isEmpty || nicknameModel.nickname.containsSpecialCharacter())
     }
+    
+    struct State {
+        var NicknameResponse: Bool = true
+    }
+    
+    enum Action {
+        case checkNickname(nickname: String)
+    }
+        
+    @Published var state: State
+    
+    init(
+        state: State = .init()
+    ) {
+        self.state = state
+    }
+    
+    func action(_ action: Action) async {
+            switch action {
+            case let .checkNickname(nickname):
+                // TODO - 제주맛집 API 호출
+                if let response = await NicknameService.checkNicknameItem(nickname: nickname),
+                   let responseData = response.result {
+                    await MainActor.run {
+                        print(response)
+                        state.NicknameResponse = responseData
+                    }
+                } else {
+                    print("Error")
+                }
+            }
+        }
 }
 
 extension String {
@@ -24,3 +56,4 @@ extension String {
         return self.rangeOfCharacter(from: specialCharacterSet) != nil
     }
 }
+

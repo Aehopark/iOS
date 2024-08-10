@@ -11,6 +11,7 @@ struct NicknameView: View {
     @StateObject private var viewModel = NicknameViewModel()
     @Environment(\.presentationMode) var presentationMode
     
+    @State var isAPICall: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -72,8 +73,15 @@ struct NicknameView: View {
     }
     
     var nextButton: some View {
-        NavigationLink {
-            ProfileView()
+        Button {
+            Task{
+                await checkNicknameItem(nickname: viewModel.nicknameModel.nickname)
+                isAPICall = true
+                
+                if viewModel.state.NicknameResponse == true {
+                    print("닉네임 중복확인") //이후 코드 작성할것
+                }
+            }
         } label: {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.07)
@@ -84,8 +92,13 @@ struct NicknameView: View {
                 }
         }.disabled(viewModel.isNextButtonDisabled)
     }
+    
+    func checkNicknameItem(nickname: String) async {
+        await viewModel.action(.checkNickname(nickname: nickname))
+    }
 }
 
 #Preview {
     NicknameView()
 }
+

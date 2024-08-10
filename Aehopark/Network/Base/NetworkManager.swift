@@ -40,8 +40,8 @@ class NetworkManager {
             return AF.request(
               "\(endPoint.baseURL)\(endPoint.path)",
               method: endPoint.method,
-              headers: endPoint.headers,
-              interceptor: Interceptor()
+              headers: endPoint.headers
+//              interceptor: Interceptor()
             )
         case let .requestParameters(parameters):
             return AF.request(
@@ -49,8 +49,8 @@ class NetworkManager {
               method: endPoint.method,
               parameters: parameters,
               encoding: URLEncoding.default,
-              headers: endPoint.headers,
-              interceptor: Interceptor()
+              headers: endPoint.headers
+//              interceptor: Interceptor()
             )
         case let .requestJSONEncodable(body):
             return AF.request(
@@ -58,8 +58,8 @@ class NetworkManager {
               method: endPoint.method,
               parameters: body,
               encoder: JSONParameterEncoder.default,
-              headers: endPoint.headers,
-              interceptor: Interceptor()
+              headers: endPoint.headers
+//              interceptor: Interceptor()
             )
         case let .requestWithoutInterceptor(body):
             if body == nil {
@@ -117,3 +117,4 @@ class NetworkManager {
         
     }
 }
+
