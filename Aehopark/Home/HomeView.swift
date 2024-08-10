@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     var layout: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
-    @EnvironmentObject var viewModel: HomeViewModel
+    @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
         GeometryReader { geo in
@@ -58,8 +58,9 @@ struct HomeView: View {
                     }
                     
                     LazyVGrid(columns: layout, content: {
-                        ForEach(viewModel.state.getRecommendItemResponse.recommendItems, id: \.id) { item in
+                        ForEach(viewModel.state.getRecommendItemResponse.list, id: \.id) { item in
                             ArticleItem(viewModel: item)
+                                .padding(.bottom, 10)
                         }
                     })
                     .padding()
@@ -74,6 +75,15 @@ struct HomeView: View {
                 }
             }
         }
+        .onAppear(){
+            Task{
+                await getHomeRecommendItem()
+            }
+        }
+    }
+    
+    func getHomeRecommendItem() async {
+        await viewModel.action(.getRecommendItem)
     }
 }
 
@@ -84,5 +94,4 @@ enum HomeViewType {
 
 #Preview {
     HomeView()
-        .environmentObject(HomeViewModel())
 }

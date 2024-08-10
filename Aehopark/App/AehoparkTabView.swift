@@ -24,24 +24,27 @@ struct AehoparkTabView: View {
                     .tabItem {
                         Label {
                             Text("홈")
+                                .font(.Inter(.regular, size: 10))
                         } icon: {
                             if appState.currentTab == .home {
-                                Image(systemName: "star.fill")
+                                Image("icHomeFill")
                             } else {
-                                Image(systemName: "star.fill")
+                                Image("icHome")
                             }
                         }
                     }
                     .tag(Tab.home)
                 FavoriteView()
+                    .environmentObject(HomeViewModel())
                     .tabItem {
                         Label {
                             Text("관심상품")
+                                .font(.Inter(.regular, size: 10))
                         } icon: {
                             if appState.currentTab == .interest {
-                                Image(systemName: "star.fill")
+                                Image("icWishFill")
                             } else {
-                                Image(systemName: "star.fill")
+                                Image("icWish")
                             }
                         }
                     }
@@ -51,11 +54,12 @@ struct AehoparkTabView: View {
                     .tabItem {
                         Label {
                             Text("장바구니")
+                                .font(.Inter(.regular, size: 10))
                         } icon: {
                             if appState.currentTab == .basket {
-                                Image(systemName: "star.fill")
+                                Image("icShoppingBagFill")
                             } else {
-                                Image(systemName: "star.fill")
+                                Image("icShoppingBag")
                             }
                         }
                     }
@@ -65,11 +69,12 @@ struct AehoparkTabView: View {
                     .tabItem {
                         Label {
                             Text("마이페이지")
+                                .font(.Inter(.regular, size: 10))
                         } icon: {
                             if appState.currentTab == .mypage {
-                                Image(systemName: "star.fill")
+                                Image("icMyPageFill")
                             } else {
-                                Image(systemName: "star.fill")
+                                Image("icMyPage")
                             }
                         }
                     }
@@ -77,6 +82,7 @@ struct AehoparkTabView: View {
             }
             .tint(Color._377_D_00)
         }
+        .toolbar(.hidden)
     }
 }
 

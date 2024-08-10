@@ -9,10 +9,9 @@ import Foundation
 
 struct ArticleItemModel: Codable {
     let id: Int64
-    let imageUrl: String
     let originType: String
-    let categoryType: String
-    let name: String
-    let price: String
-    var isFavorite: Bool
+    let category: String
+    let ingredient: String
+    let image_url: String
+    var wishlist_status: Bool
 }
