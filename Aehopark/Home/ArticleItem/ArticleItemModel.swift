@@ -9,9 +9,8 @@ import Foundation
 
 struct ArticleItemModel: Codable {
     let id: Int64
-    let originType: String
     let category: String
     let ingredient: String
-    let image_url: String
-    var wishlist_status: Bool
+    let imageUrl: String?
+    var wishlistStatus: Int64
 }

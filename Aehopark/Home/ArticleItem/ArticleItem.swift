@@ -51,17 +51,18 @@ struct ArticleItem: View {
                             HStack {
                                 Spacer()
                                 //appstate로 수정하기
-                                NavigationLink(destination: DetailView(name:viewModel.ingredient, categoryType: viewModel.category, imageUrl:viewModel.image_url)) {
+                                Button(action: {
+                                    AppState.shared.navigationPath.append(ArticleType.detail(name: viewModel.ingredient, categoryType: viewModel.category, imageUrl: viewModel.imageUrl!))
+                                }, label: {
                                     Text("최저가 보러가기")
                                         .font(.Roboto(size: 12))
                                         .foregroundColor(._767676)
-                                    
-                                }
+                                })
                                 .padding()
                             }
                         }
                     }
-                KFImage(URL(string: viewModel.image_url))
+                KFImage(URL(string: viewModel.imageUrl ?? ""))
                     .resizable()
                     .frame(width: 160, height: 160) // 너비를 고정
                     .background(.gray)
@@ -77,7 +78,7 @@ struct ArticleItem: View {
                         ZStack {
                             VStack {
                                 HStack {
-                                    Text("\(viewModel.originType)")
+                                    Text("Nature")
                                         .font(.RobotoMono(.regular, size: 12))
                                         .foregroundColor(.black)
                                         .background {
@@ -93,7 +94,7 @@ struct ArticleItem: View {
                                                     )
                                                 )
                                         }
-                                        .padding(EdgeInsets(top: 4, leading: 32, bottom: 0, trailing: 0))
+                                        .padding(EdgeInsets(top: 4, leading: 10, bottom: 0, trailing: 0))
                                     Spacer()
                                 }
                                 Spacer()
@@ -109,14 +110,14 @@ struct ArticleItem: View {
                                         //하트 선택/취소
                                         
                                     }) {
-                                        Image(systemName: viewModel.wishlist_status ? "heart.fill" : "heart")
+                                        Image(systemName: viewModel.wishlistStatus == 1 ? "heart.fill" : "heart")
                                             .renderingMode(.template)
                                             .background {
                                                 Circle()
                                                     .frame(width: 30, height: 30)
                                                     .foregroundColor(.white)
                                             }
-                                            .foregroundColor(viewModel.wishlist_status ? ._377_D_00: Color.gray)
+                                            .foregroundColor(viewModel.wishlistStatus == 1 ? ._377_D_00: Color.gray)
                                             .padding()
                                     }
                                 }
@@ -127,9 +128,19 @@ struct ArticleItem: View {
             }
         }
         .frame(width: 160, height: 250) // 너비를 고정
+        .navigationDestination(for: ArticleType.self) { article in
+            switch article {
+            case let .detail(name, categoryType, imageUrl):
+                DetailView(name: name, categoryType: categoryType, imageUrl: imageUrl)
+            }
+        }
     }
 }
 
+enum ArticleType: Hashable {
+    case detail(name: String, categoryType: String, imageUrl: String)
+}
+
 #Preview {
-    ArticleItem(viewModel: ArticleItemModel(id: 0, originType: "", category: "", ingredient: "", image_url: "", wishlist_status: true))
+    ArticleItem(viewModel: ArticleItemModel(id: 0, category: "", ingredient: "", imageUrl: "", wishlistStatus: 0))
 }

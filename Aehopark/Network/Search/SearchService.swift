@@ -10,7 +10,7 @@ import Alamofire
 import UIKit
 
 struct SearchService {
-    static func getAllItem(page: Int64) async -> BaseResponse<SearchModel>? {
+    static func getAllItem(page: Int64) async -> BaseResponse<[ArticleItemModel]>? {
         return await NetworkManager.shared.request(SearchEndPoint.getAllItem(page: page))
     }
     

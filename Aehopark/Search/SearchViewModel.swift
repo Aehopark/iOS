@@ -10,14 +10,14 @@ import Foundation
 final class SearchViewModel: ObservableObject {
     struct State{
         // 모든 재료 표시
-        var getAllItemResponse = SearchModel(result: [ArticleItemModel(id: 0, originType: "", category: "", ingredient: "", image_url: "", wishlist_status: true)])
+        var getAllItemResponse: [ArticleItemModel] = [ArticleItemModel(id: 0, category: "", ingredient: "", imageUrl: "", wishlistStatus: 1)]
         //통합 검색
-        var getSearchItemResponse =  SearchModel(result: [ArticleItemModel(id: 0, originType: "", category: "", ingredient: "", image_url: "", wishlist_status: true)])
+        var getSearchItemResponse =  SearchModel(result: [ArticleItemModel(id: 1, category: "", ingredient: "", imageUrl: "", wishlistStatus: 1)])
         
         //카테고리 선택
-        var getCategoryItemResponse =  SearchModel(result: [ArticleItemModel(id: 0, originType: "", category: "", ingredient: "", image_url: "", wishlist_status: true)])
+        var getCategoryItemResponse =  SearchModel(result: [ArticleItemModel(id: 2, category: "", ingredient: "", imageUrl: "", wishlistStatus: 1)])
         //카테고리 선택 후 검색
-        var getCategorySearchItemResponse =  SearchModel(result: [ArticleItemModel(id: 0, originType: "", category: "", ingredient: "", image_url: "", wishlist_status: true)])
+        var getCategorySearchItemResponse =  SearchModel(result: [ArticleItemModel(id: 3, category: "", ingredient: "", imageUrl: "", wishlistStatus: 1)])
     }
     
     enum Action {
@@ -44,7 +44,7 @@ final class SearchViewModel: ObservableObject {
                    let responseData = response.result {
                     await MainActor.run {
                         print(response)
-                        state.getSearchItemResponse = responseData
+                        state.getAllItemResponse = responseData
                     }
                 } else {
                     print("Error")

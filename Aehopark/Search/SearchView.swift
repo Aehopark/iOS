@@ -19,6 +19,8 @@ enum Category: String, CaseIterable, Codable {
 
 struct SearchView: View {
     
+    var layout: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+    
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = ._377_D_00
         UIPageControl.appearance().pageIndicatorTintColor = UIColor._999999
@@ -115,31 +117,24 @@ struct SearchView: View {
                 .padding(.top, -20)
                 
                 if allItemApi {
-                    if viewModel.state.getAllItemResponse.result.count != 0 {
+                    if viewModel.state.getAllItemResponse.count != 0 {
                         ScrollView{
                             HStack{
                                 Text("재료이름")
                                     .font(.Roboto(.semibold, size: 20))
                                     .foregroundColor(.black)
+                                    .padding(.leading, 25)
                                 
                                 Spacer()
-                                
-                                //                            Button(action: {
-                                //
-                                //                            }, label: {
-                                //                                HStack{
-                                //                                    Text("더보기")
-                                //                                        .font(.Roboto(.regular, size: 12))
-                                //                                        .foregroundColor(._767676)
-                                //                                    Image(systemName: "chevron.right")
-                                //                                        .renderingMode(.template)
-                                //                                        .resizable()
-                                //                                        .frame(width: 3, height: 6)
-                                //                                        .foregroundColor(._767676)
-                                //                                        .padding(.leading, -5)
-                                //                                }
-                                //                            })
                             }
+                            
+                            LazyVGrid(columns: layout, content: {
+                                ForEach(viewModel.state.getAllItemResponse, id: \.id) { item in
+                                    ArticleItem(viewModel: item)
+                                        .padding(.bottom, 10)
+                                }
+                            })
+                            
                             .padding(EdgeInsets(top: 20, leading: 24, bottom: 0, trailing: 24))
                         }.id("Scroll_To_Top")
                             .overlay(
@@ -388,15 +383,15 @@ struct SearchView: View {
     }
     
     func getAllItem() async {
-        await viewModel.action(.getAllItem(page: 1))
+        await viewModel.action(.getAllItem(page: 0))
     }
     
     func getSearchItem(ingredient_name: String) async {
-        await viewModel.action(.getSearchItem(ingredient_name: ingredient_name, page: 1))
+        await viewModel.action(.getSearchItem(ingredient_name: ingredient_name, page: 0))
     }
     
     func getCategoryItem(category_name: String) async {
-        await viewModel.action(.getCategoryItem(category_name: category_name, page: 1))
+        await viewModel.action(.getCategoryItem(category_name: category_name, page: 0))
     }
     
     func getCategorySearchItem(category_name: String, ingredient_name: String) async {
