@@ -6,8 +6,8 @@
 //
 
 //import SwiftUI
-
 import SwiftUI
+import SafariServices
 
 struct OrderView: View {
     @State var products: [Product]
@@ -20,6 +20,7 @@ struct OrderView: View {
     @State private var showOrdererInfo = false
     @State private var showAddressModal = false
     @State private var deliveryRequest = ""
+    @State private var showSafariView = false // SafariView를 표시할 상태 변수
     let paymentMethods = ["신용카드", "무통장입금", "휴대폰결제"]
     
     @State private var showPaymentSuccess = false
@@ -226,20 +227,60 @@ struct OrderView: View {
                         Image(systemName: isAgreedToTerms ? "checkmark.square.fill" : "square")
                             .foregroundColor(isAgreedToTerms ? Color("377D00") : .gray)
                     }
-                    Text("결제 약관에 동의합니다")
+                    Text("전자지급 결제대행 서비스 이용약관 동의")
                         .font(.Roboto(.regular, size: 12))
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        showSafariView.toggle()
+                    }) {
+                        Text("보기")
+                            .font(.Roboto(.medium, size: 12))
+                            .foregroundColor(Color("DBDBDB"))
+                            .underline()
+                            .padding(.leading, 8)
+                    }
+                    .sheet(isPresented: $showSafariView) {
+                        SafariView(url: URL(string: "https://hickory-card-890.notion.site/af0cc617368c44ea84f5de62208d8f06")!)
+                    }
+                    .padding(.trailing, 6)
                 }
-                .padding(24)
+                .padding([.horizontal, .top], 24)
+                
+                HStack {
+                    Button(action: {
+                        isAgreedToTerms.toggle()
+                    }) {
+                        Image(systemName: isAgreedToTerms ? "checkmark.square.fill" : "square")
+                            .foregroundColor(isAgreedToTerms ? Color("377D00") : .gray)
+                    }
+                    Text("전자지급 결제대행 서비스 이용약관 동의")
+                        .font(.Roboto(.regular, size: 12))
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        showSafariView.toggle()
+                    }) {
+                        Text("보기")
+                            .font(.Roboto(.medium, size: 12))
+                            .foregroundColor(Color("DBDBDB"))
+                            .underline()
+                            .padding(.leading, 8)
+                    }
+                    .sheet(isPresented: $showSafariView) {
+                        SafariView(url: URL(string: "https://hickory-card-890.notion.site/af0cc617368c44ea84f5de62208d8f06")!)
+                    }
+                    .padding(.trailing, 6)
+                }
+                .padding([.horizontal, .bottom], 24)
+                .padding(.top, -12)
+
                 
                 // 결제하기 버튼
                 Button(action: {
-                    if isAgreedToTerms {
-                        // 결제 성공 페이지로 이동
-                        showPaymentSuccess = true
-                    } else {
-                        // 결제 실패 페이지로 이동
-                        showPaymentFailure = true
-                    }
+                    showAlert()
                 }) {
                     Text("\(totalAmount)원 결제하기")
                         .font(.Roboto(.semibold, size: 16))
@@ -251,19 +292,33 @@ struct OrderView: View {
                 }
                 .disabled(!isAgreedToTerms)
                 .padding([.leading, .trailing, .bottom], 16)
-                //                .background(
-                //                    NavigationLink(destination: PaymentSuccessView(), isActive: $showPaymentSuccess) { EmptyView() }
-                //                )
-                //                .background(
-                //                    NavigationLink(destination: PaymentFailureView(), isActive: $showPaymentFailure) { EmptyView() }
-                //                )
-                //            }
                 .background(Color("F8F8F8"))
             }
             .navigationTitle("결제")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: nil, message: "결제 기능 업데이트 중입니다🥹 빠른 시일 내에 완료하도록 하겠습니다 :)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let rootViewController = windowScene.windows.first?.rootViewController {
+                rootViewController.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+    
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {}
 }
 
 struct OrderView_Previews: PreviewProvider {
@@ -272,30 +327,6 @@ struct OrderView_Previews: PreviewProvider {
             Product(company: "회사1", title: "상품 1", discription: "", price: 10000, discountPrice: 8000, discountPercentage: 20, quantity: 1),
             Product(company: "회사2", title: "상품 2", discription: "", price: 20000, quantity: 2),
             Product(company: "회사3", title: "상품 3", discription: "", price: 30000, discountPrice: 25000, discountPercentage: 16, quantity: 3)
-        ], totalPrice: 60000, totalDiscount: 10000, totalFee: 3000, totalAmount: 53000) // 예시 값
+        ], totalPrice: 60000, totalDiscount: 10000, totalFee: 3000, totalAmount: 53000)
     }
 }
-
-//struct PaymentSuccessView: View {
-//    var body: some View {
-//        VStack {
-//            Text("결제가 완료되었습니다!")
-//                .font(.title)
-//                .padding()
-//        }
-//        .navigationTitle("결제 완료")
-//        .navigationBarTitleDisplayMode(.inline)
-//    }
-//}
-//
-//struct PaymentFailureView: View {
-//    var body: some View {
-//        VStack {
-//            Text("결제가 실패하였습니다.")
-//                .font(.title)
-//                .padding()
-//        }
-//        .navigationTitle("결제 실패")
-//        .navigationBarTitleDisplayMode(.inline)
-//    }
-//}
